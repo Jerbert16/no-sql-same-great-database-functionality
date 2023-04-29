@@ -1,4 +1,4 @@
-const { Schema, model } = require("mongoose");
+const { Schema, Types, model } = require("mongoose");
 const thoughtSchema = require("./Thought");
 const validateEmail = function (email) {
   const redux = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
