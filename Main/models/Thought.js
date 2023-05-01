@@ -39,10 +39,11 @@ const thoughtSchema = new Schema(
       type: String,
       required: true,
     },
-    reactions: reactionSchema,
+    reactions: [reactionSchema],
   },
   {
     toJSON: {
+      getters: true,
       virtuals: true,
     },
     id: false,
@@ -54,7 +55,7 @@ thoughtSchema.virtual('reactionCount').get(function () {
 });
 
 thoughtSchema.virtual('dateFormat').get(function () {
-    return this.createdAt.default;
+    return Intl.DateTimeFormat('en-US').format();
 });
 
 const Thought = model('thought', thoughtSchema);
