@@ -44,6 +44,23 @@ module.exports = {
       res.status(500).json(err);
     }
   },
+  // updates existing user
+  async updateUser({ params, body }, res) {
+    try {
+      const dbUserData = await User.findOneAndUpdate({ _id: params.id }, body, {
+        new: true,
+        runValidators: true,
+      });
+      if (!dbUserData) {
+        res.status(404).json({ message: "No user found with this id!" });
+        return;
+      }
+      res.json(dbUserData);
+    } catch (err) {
+      console.log(err);
+      res.status(500).json(err);
+    }
+  },
   // Delete a user and remove their thoughts
   async deleteUser(req, res) {
     try {
