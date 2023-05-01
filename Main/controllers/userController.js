@@ -47,15 +47,15 @@ module.exports = {
   // updates existing user
   async updateUser({ params, body }, res) {
     try {
-      const dbUserData = await User.findOneAndUpdate({ _id: params.id }, body, {
+      const user = await User.findOneAndUpdate({ _id: params.id }, body, {
         new: true,
         runValidators: true,
       });
-      if (!dbUserData) {
+      if (!user) {
         res.status(404).json({ message: "No user found with this id!" });
         return;
       }
-      res.json(dbUserData);
+      res.json(user);
     } catch (err) {
       console.log(err);
       res.status(500).json(err);
