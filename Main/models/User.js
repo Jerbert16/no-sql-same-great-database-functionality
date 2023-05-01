@@ -24,8 +24,8 @@ const userSchema = new Schema(
         "Please enter a valid email address",
       ],
     },
-    thoughts: [{ thoughts_id: Schema.Types.ObjectId, ref: "Thought" }],
-    friends: [{ friends_id: Schema.Types.ObjectId, ref: "User" }],
+    // thoughts: [thoughtSchema],
+    friends: {type: String}//[{ friends_id: Schema.Types.ObjectId, ref: "User" }],
   },
   {
     toJSON: {

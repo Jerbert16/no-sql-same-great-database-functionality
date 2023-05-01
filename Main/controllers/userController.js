@@ -72,15 +72,15 @@ module.exports = {
     }
   },
 
-  // Add a thought to a user
-  async addThought(req, res) {
-    console.log('You are adding a thought');
+  // Add a friend to a user
+  async addFriend(req, res) {
+    console.log('You are adding a friend');
     console.log(req.body);
 
     try {
       const user = await User.findOneAndUpdate(
         { _id: req.params.userId },
-        { $addToSet: { thoughts: req.body } },
+        { $addToSet: { friends: req.body } },
         { runValidators: true, new: true }
       );
 
@@ -95,11 +95,11 @@ module.exports = {
     }
   },
   // Remove a thought from a user
-  async removeThought(req, res) {
+  async deleteFriend(req, res) {
     try {
       const user = await User.findOneAndUpdate(
         { _id: req.params.userId },
-        { $pull: { thought: { thoughtId: req.params.thoughtId } } },
+        { $pull: { friends: { friendId: req.params.friendId } } },
         { runValidators: true, new: true }
       );
 

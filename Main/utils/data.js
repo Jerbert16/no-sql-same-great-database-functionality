@@ -18,7 +18,7 @@ const users = [
   const getRandomArrItem = (arr) => arr[Math.floor(Math.random() * arr.length)];
   
   // Gets a random user
-  const getRandomName = () =>
+  const getRandomUser = () =>
     `${getRandomArrItem(users)}`;
   
   // Function to generate random thought that we can add to user object.

@@ -23,7 +23,7 @@ connection.once('open', async () => {
 
     const username = getRandomUser();
     const email = username.split(' ')[0];
-    const friends = `${first}${Math.floor(Math.random() * (99 - 18 + 1) + 18)}`;
+    const friends = 'you have too many friends'
 
     users.push({
       username,
