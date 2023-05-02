@@ -1,50 +1,39 @@
-const connection = require('../config/connection');
-const { Thought, User } = require('../models');
-const { getRandomUser, getRandomThought } = require('./data');
+const connection = require("../config/connection");
+const { User, Thought } = require("../models");
+const { getRandomThoughts, getRandomUsername } = require("./data");
 
-connection.on('error', (err) => err);
+connection.on("error", (err) => err);
 
-connection.once('open', async () => {
-  console.log('connected');
+connection.once("open", async () => {
+  console.log("connected");
 
-  // Drop existing thoughts
-  await Thought.deleteMany({});
-
-  // Drop existing users
+  // Clear existing users
   await User.deleteMany({});
 
-  // Create empty array to hold users
+  // Clear existing thoughts
+  await Thought.deleteMany({});
+
+  // Create ze empty array to hold the users
   const users = [];
+  const thoughts = getRandomThoughts(5);
 
-  // Loop 20 times -- add users to array
-  for (let i = 0; i < 20; i++) {
-    // Get some random assignment objects using a helper function that we imported from ./data
-    const thoughts = getRandomThought(20);
+  // Loop 10 times -- add users to the users array
+  for (let i = 0; i < 5; i++) {
+    // Get some random thought objects using a helper function that we imported from ./data
 
-    const username = getRandomUser();
-    const email = username.split(' ')[0];
-    const friends = 'you have too many friends'
+    const username = getRandomUsername();
+    const email = `${username}@aol.com`;
 
     users.push({
       username,
       email,
-      thoughts,
-      friends,
     });
   }
-
-  // Add users to the collection and await the results
+  // Add users to collection 
   await User.collection.insertMany(users);
+  // Add thoughts to collection
+  await Thought.collection.insertMany(thoughts);
 
-  // Add thoughts to the collection and await the results
-  await Thought.collection.insertOne({
-    thoughtText: 'I hope this works',
-    username: 'lostcoder12',
-    reactions: [...reactions],
-  });
-
-  // Log out the seed data to indicate what should appear in the database
-  console.table(users);
-  console.info('Seeding complete! 🌱');
+  console.info("Seeding complete! 🌱");
   process.exit(0);
 });
